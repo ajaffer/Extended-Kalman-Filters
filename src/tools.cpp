@@ -18,12 +18,7 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
                                 // RMSE << 1,1,1,1;
                                 // // cout << "tools-2" << endl;
                                 // return RMSE;
-  /**
-  TODO:
-    * Calculate the RMSE here.
-	*/
-	
-	// cout << "** CalculateRMSE" << endl;
+		// cout << "** CalculateRMSE" << endl;
 
 	VectorXd rmse(4);
 	rmse << 0,0,0,0;
@@ -106,15 +101,6 @@ VectorXd Tools::CartesianToPolar(const VectorXd& x_state) {
 
 	//compute the Jacobian matrix
 	float phi = atan2(py, px);
-	// double pi = 3.14159265358979323846;
-	// double two_pi = 6.28318530718;
-	// if (phi < (-1 * pi)) {
-	// 	cout << "[warning] phi was less than pi: " << phi << endl;
-	// 	phi += two_pi;
-	// } else if (phi > (pi)) {
-	// 	cout << "[warning] phi was greater than pi: " << phi << endl;
-	// 	phi -= two_pi;
-	// }
 	h << c1,
        phi,
        ((px*vx+py*vy) / c1);
@@ -126,13 +112,7 @@ VectorXd Tools::CartesianToPolar(const VectorXd& x_state) {
 }
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
-  /**
-  TODO:
-    * Calculate a Jacobian here.
-  */
-
 	// cout << "** CalculateJacobian()" << endl;
-
 	// cout << "x_state: " << x_state << endl;
 
 	MatrixXd Hj(3,4);

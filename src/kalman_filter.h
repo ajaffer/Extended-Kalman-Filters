@@ -6,7 +6,6 @@
 
 class KalmanFilter {
 public:
-
   // state vector
   Eigen::VectorXd x_;
 
@@ -67,6 +66,10 @@ public:
    * @param z The measurement at k+1
    */
   void UpdateEKF(const Eigen::VectorXd &z);
+
+private:
+  const double pi = 3.14159265358979323846;
+  const double two_pi = 6.28318530718;  
 
 };
 

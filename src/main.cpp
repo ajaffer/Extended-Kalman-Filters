@@ -106,14 +106,11 @@ int main()
     	  ground_truth.push_back(gt_values);
           
           //Call ProcessMeasurment(meas_package) for Kalman filter
-          // cout << "main-0" << endl;
           fusionEKF.ProcessMeasurement(meas_package);    	  
 
     	  //Push the current estimated x,y positon from the Kalman filter's state vector
 
-        // cout << "main-1" << endl;
     	  VectorXd estimate(4);
-        // cout << "main-2" << endl;
         
     	  double p_x = fusionEKF.ekf_.x_(0);
     	  double p_y = fusionEKF.ekf_.x_(1);
@@ -126,24 +123,19 @@ int main()
     	  estimate(3) = v2;
     	  
     	  estimations.push_back(estimate);
-        // cout << "main-50" << endl;
+
         
         VectorXd RMSE = tools.CalculateRMSE(estimations, ground_truth);
         cout << "Accuracy - RMSE:" << endl << RMSE << endl;
-        // cout << "main-51" << endl;
         
           json msgJson;
-          // cout << "main-60" << endl;
           msgJson["estimate_x"] = p_x;
           msgJson["estimate_y"] = p_y;
           msgJson["rmse_x"] =  RMSE(0);
           msgJson["rmse_y"] =  RMSE(1);
           msgJson["rmse_vx"] = RMSE(2);
           msgJson["rmse_vy"] = RMSE(3);
-          // cout << "main-99" << endl;
           auto msg = "42[\"estimate_marker\"," + msgJson.dump() + "]";
-          // std::cout << msg << std::endl;
-          // cout << "main-100" << endl;
           
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
 	  

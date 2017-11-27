@@ -5,9 +5,6 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using namespace std;
 
-// Please note that the Eigen library does not initialize 
-// VectorXd or MatrixXd objects with zeros upon creation.
-
 KalmanFilter::KalmanFilter() {}
 
 KalmanFilter::~KalmanFilter() {}
@@ -31,10 +28,6 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 }
 
 void KalmanFilter::Predict() {
-  /**
-  TODO:
-    * predict the state
-	*/
 	// cout << "** Predict" << endl;
 	x_ = F_ * x_;
 	// cout << "x: " << x_ << endl;
@@ -45,11 +38,6 @@ void KalmanFilter::Predict() {
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
-  /**
-  TODO:
-    * update the state by using Kalman Filter equations
-  */
-
 	// cout << "** Update()"  << endl;
 	VectorXd z_pred = H_ * x_;
 	VectorXd y = z - z_pred;
@@ -70,15 +58,7 @@ void KalmanFilter::Update(const VectorXd &z) {
 	// cout << "|| Update()"  << endl;
 }
 
-const double pi = 3.14159265358979323846;
-const double two_pi = 6.28318530718;
-
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
-  /**
-  TODO:
-    * update the state by using Extended Kalman Filter equations
-  */
-
 	// cout << "** UpdateEKF()"  << endl;
 	
 	VectorXd z_pred = tools.CartesianToPolar(x_);
@@ -109,22 +89,6 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
 	long x_size = x_.size();
 	MatrixXd I = MatrixXd::Identity(x_size, x_size);
 	P_ = (I - K * H_) * P_;    
-
-  // MatrixXd Hj = Tools::CalculateJacobian(x_);
-
-  // VectorXd h = Tools:CartesianToPolar(x_);
-	// VectorXd y = z - h;
-	// MatrixXd Ht = Hj.transpose();
-	// MatrixXd S = Hj * P_ * Ht + R_;
-	// MatrixXd Si = S.inverse();
-	// MatrixXd PHt = P_ * Ht;
-	// MatrixXd K = PHt * Si;
-
-	// //new estimate
-	// x_ = x_ + (K * y);
-	// long x_size = x_.size();
-	// MatrixXd I = MatrixXd::Identity(x_size, x_size);
-	// P_ = (I - K * Hj) * P_;  
 
 	// cout << "|| UpdateEKF()"  << endl;
 }
